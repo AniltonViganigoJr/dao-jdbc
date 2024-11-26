@@ -3,6 +3,7 @@ package application;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
@@ -14,6 +15,8 @@ public class Program {
 	public static void main(String[] args) throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		Scanner sc = new Scanner(System.in);
 		
 		SellerDao sellerDao = DaoFactory.createSellerDao();
 		System.out.println("=== TEST #1: Seller - FindById ===");
@@ -35,8 +38,21 @@ public class Program {
 		}
 		
 		System.out.println("\n=== TEST #4: Seller - Insert One ===");
-		seller = new Seller(null, "João Alfredo", "alfredo@gmail.com", sdf.parse("29/11/1953"), 1200.00, new Department(4,null));
+		seller = new Seller(null, "Quixote Cusco de Souza", "quixote@gmail.com", sdf.parse("22/12/2012"), 3000.00, new Department(3,null));
 		sellerDao.insert(seller);
 		System.out.println("Inserted New Id: " + seller.getId());
+		
+		System.out.println("\n=== TEST #5: Seller - Update Seller ===");
+		seller = sellerDao.findById(1);
+		seller.setName("Ronaldo Nazário de Lima");
+		seller.setEmail("nazario@hotmail.com");
+		seller.setBaseSalary(350000.00);
+		sellerDao.update(seller);
+		System.out.println("Update completed!");
+		
+		System.out.println("\n=== TEST #6: Seller - Delete By Id ===");
+		System.out.print("Enter ID to Delete: ");
+		int id = sc.nextInt();
+		sellerDao.deleteById(id);
 	}
 }
