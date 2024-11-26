@@ -54,5 +54,7 @@ public class Program {
 		System.out.print("Enter ID to Delete: ");
 		int id = sc.nextInt();
 		sellerDao.deleteById(id);
+		
+		sc.close();
 	}
 }
